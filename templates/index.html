@@ -2,12 +2,17 @@
 
 {% block body %}
 <div class="jumbotron">
-    <h1 class="display-4">Bootstrap starter template by {{ app_data['author'] }} </h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <p>Title: {{ app_data['html_title'] }}</p>
+    <h1 class="display-4">Trip planner by {{ app_data['author'] }} </h1>
+    <p>{{ app_data['html_title'] }}</p>
 
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="/contact" role="button">Contact</a>
+    <p class="lead">Not sure where to go yet ?</p>
+    <p>Use this tool to find a destination that is best for you !</p>
+    <a class="btn btn-primary btn-lg" href="/find" role="button">Find my trip</a>
+
+    <hr class="my-4">
+    <p class="lead">Already have a destination in mind ?</p>
+    <p>Use this tool to personalise your housing, activities and transportation and make planning easy !</p>
+    <a class="btn btn-primary btn-lg" href="/build" role="button">Build my trip</a>
   </div>
 {% endblock %}

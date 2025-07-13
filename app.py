@@ -13,11 +13,11 @@ DEVELOPMENT_ENV = True
 app = Flask(__name__)
 
 app_data = {
-    "name": "Peter's Starter Template for a Flask Web App",
-    "description": "A basic Flask app using bootstrap for layout",
-    "author": "Peter Simeth",
-    "html_title": "Peter's Starter Template for a Flask Web App",
-    "project_name": "Starter Template",
+    "name": "Start planning !",
+    "description": "An app to help you plan your next trip",
+    "author": "Salomé Marie",
+    "html_title": "Start planning !",
+    "project_name": "Trip Planning",
     "keywords": "flask, webapp, template, basic",
 }
 
@@ -27,14 +27,14 @@ def index():
     return render_template("index.html", app_data=app_data)
 
 
-@app.route("/about")
-def about():
-    return render_template("about.html", app_data=app_data)
+@app.route("/build")
+def build():
+    return render_template("build.html", app_data=app_data)
 
 
-@app.route("/service")
-def service():
-    return render_template("service.html", app_data=app_data)
+@app.route("/find")
+def find():
+    return render_template("find.html", app_data=app_data)
 
 
 @app.route("/contact")
