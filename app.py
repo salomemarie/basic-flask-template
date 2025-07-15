@@ -6,12 +6,13 @@ https://github.com/petersimeth/basic-flask-template
 © MIT licensed, 2018-2023
 """
 
+import config
 from flask import Flask, render_template, request, url_for, flash, redirect
 
 DEVELOPMENT_ENV = True
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd6e1db7bc1d7a23c4a3d0bf072bb09acc45802b00e58e543'
+app.config['SECRET_KEY'] = config.SECRET_KEY
 
 findDestData = {}
 
