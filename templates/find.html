@@ -7,13 +7,38 @@
         <h1 class="display-4">Where are you going next ?</h1>
         <p class="lead">Find yourself a new place to travel to here</p>
     </div>
-        <form>
-            <div class="form-group">
-                <label for="distanceFromHome">Where are you leaving from ? Do you want to explore far or stay close to home ?</label>
-                <input type="text" class="form-control" id="distanceFromHome" placeholder="From Paris, I want to stay in the EU">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <form method="POST" action="/find">
+        <div class="form-group">
+            <label for="distanceFromHome">
+                Where are you leaving from? Do you want to explore far or stay close to home?
+            </label>
+            <input type="text" class="form-control" name="distanceFromHome" id="distanceFromHome" placeholder="From Paris, I want to stay in the EU">
+        </div>
+
+        <div class="form-group">
+            <label for="tripType">
+                What type of trip are you looking for? (Desert, beach, mountain, city, etc.)
+            </label>
+            <input type="text" class="form-control" name="tripType" id="tripType" placeholder="Beach or mountain adventure">
+        </div>
+
+        <div class="form-group">
+            <label for="pastVacations">
+                Where have you traveled before? And what were your favorites ?
+            </label>
+            <input type="text" class="form-control" name="pastVacations" id="pastVacations" placeholder="Spain, Morocco, Greece...I loved Morocco the most">
+        </div>
+
+        <div class="form-group">
+            <label for="extraInformation">
+                Anything else that you want to take into account ?
+            </label>
+            <input type="text" class="form-control" name="extraInformation" id="extraInformation" placeholder="Nothing to add...">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
     </div>
 
 

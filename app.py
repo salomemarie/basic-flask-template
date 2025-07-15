@@ -7,16 +7,11 @@ https://github.com/petersimeth/basic-flask-template
 """
 
 from flask import Flask, render_template, request, url_for, flash, redirect
-from flask_wtf import FlaskForm, CSRFProtect
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
 
 DEVELOPMENT_ENV = True
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'H82xzioef9H22O8DH0h_eçhw<he_'
-# Flask-WTF requires this line
-csrf = CSRFProtect(app)
+app.config['SECRET_KEY'] = 'd6e1db7bc1d7a23c4a3d0bf072bb09acc45802b00e58e543'
 
 findDestData = {}
 
@@ -35,6 +30,9 @@ def build():
 def find():
     if request.method == 'POST':
         findDestData['distanceFromHome'] = request.form['distanceFromHome']
+        findDestData['tripType'] = request.form['tripType']
+        findDestData['pastVacations'] = request.form['pastVacations']
+        findDestData['extraInformation'] = request.form['extraInformation']
         return redirect(url_for('contact'))
     return render_template("find.html")
 
