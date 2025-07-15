@@ -3,3 +3,5 @@
 flask
 Flask-WTF
 python-dotenv
+mistralai
+markdown

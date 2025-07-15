@@ -2,5 +2,7 @@
 
 {% block body %}
     <h1>Your recommended places</h1>
-    <p>{{  app_data.distanceFromHome }}</p>
+    <div class="card p-3 my-4">
+        {{ recommendation_html|safe }}
+    </div>
 {% endblock %}
