@@ -6,40 +6,42 @@ https://github.com/petersimeth/basic-flask-template
 © MIT licensed, 2018-2023
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
+from flask_wtf import FlaskForm, CSRFProtect
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired, Length
 
 DEVELOPMENT_ENV = True
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'H82xzioef9H22O8DH0h_eçhw<he_'
+# Flask-WTF requires this line
+csrf = CSRFProtect(app)
 
-app_data = {
-    "name": "Start planning !",
-    "description": "An app to help you plan your next trip",
-    "author": "Salomé Marie",
-    "html_title": "Start planning !",
-    "project_name": "Trip Planning",
-    "keywords": "flask, webapp, template, basic",
-}
+findDestData = {}
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", app_data=app_data)
+    return render_template("index.html")
 
 
 @app.route("/build")
 def build():
-    return render_template("build.html", app_data=app_data)
+    return render_template("build.html")
 
 
-@app.route("/find")
+@app.route("/find", methods=["GET", "POST"])
 def find():
-    return render_template("find.html", app_data=app_data)
+    if request.method == 'POST':
+        findDestData['distanceFromHome'] = request.form['distanceFromHome']
+        return redirect(url_for('contact'))
+    return render_template("find.html")
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html", app_data=app_data)
+    return render_template("contact.html", app_data=findDestData)
 
 
 if __name__ == "__main__":

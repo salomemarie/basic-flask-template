@@ -1,7 +1,20 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <h1>{{ app_data['description'] }}</h1>
-    <h2>Find yourself a new place to travel to here</h2>
+
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Where are you going next ?</h1>
+        <p class="lead">Find yourself a new place to travel to here</p>
+    </div>
+        <form>
+            <div class="form-group">
+                <label for="distanceFromHome">Where are you leaving from ? Do you want to explore far or stay close to home ?</label>
+                <input type="text" class="form-control" id="distanceFromHome" placeholder="From Paris, I want to stay in the EU">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
 
 {% endblock %}
