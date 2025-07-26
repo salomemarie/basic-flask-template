@@ -1,3 +1,5 @@
+import json, re
+from data.shared_data import findDestData, places
 import config
 from mistralai import Mistral
 
@@ -37,3 +39,24 @@ def getPlaces(findDestData):
         ]
     )
     return chat_response.choices[0].message.content
+
+def clean_and_parse_json(raw):
+    if isinstance(raw, list):  # Already parsed
+        return raw
+
+    if not isinstance(raw, str):
+        raise ValueError("Input must be a string or list")
+
+    # Extract just the JSON array
+    match = re.search(r'\[\s*{.*?}\s*\]', raw, re.DOTALL)
+    if not match:
+        raise ValueError("Could not find JSON array in the response")
+
+    json_str = match.group(0)
+    return json.loads(json_str)
+
+def fetch_and_add_new_places():
+    rawPlacesData = getPlaces(findDestData=findDestData)
+    jsonPlacesData = clean_and_parse_json(rawPlacesData)
+    places.extend(jsonPlacesData)
+

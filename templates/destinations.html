@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Your recommended places</h1>
 
-    <form action="{{ url_for('refresh_places') }}" method="POST">
+    <form action="{{ url_for('find_bp.refresh_places') }}" method="POST">
         <button type="submit">🔄 Refresh Recommendations</button>
     </form>
 
@@ -14,7 +14,7 @@
         <p><strong>Why you'll like it:</strong> {{ place.goodThing }}</p>
         <p><strong>Watch out for:</strong> {{ place.watchOut }}</p>
 
-        <form action="{{ url_for('toggle_like') }}" method="POST">
+        <form action="{{ url_for('find_bp.toggle_like') }}" method="POST">
             <input type="hidden" name="city" value="{{ place.city }}">
             <input type="hidden" name="country" value="{{ place.country }}">
             <button 
@@ -24,7 +24,7 @@
             </button>
         </form>
 
-        <form action="{{ url_for('more_info') }}" method="POST" style="display:inline-block;">
+        <form action="{{ url_for('find_bp.more_info') }}" method="POST" style="display:inline-block;">
             <input type="hidden" name="city" value="{{ place.city }}">
             <input type="hidden" name="country" value="{{ place.country }}">
             <button type="submit">ℹ️ More Info</button>

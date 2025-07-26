@@ -1,0 +1,4 @@
+findDestData = {}
+places = []
+likedPlaces = []
+previousPrepositions = []
