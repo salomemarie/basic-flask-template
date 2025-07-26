@@ -12,12 +12,17 @@ def getPlaces(findDestData):
             {
                 "role": "user",
                 "content": f"""
-                        I want you to help me find 3 vacation destinations that I would enjoy.
+                       I want you to return a list of 3 vacation destinations that I would enjoy, as structured `Place` objects in JSON format without including the word json.
 
-                        Without introduction or conclusion, jump right into the destinations
-                        For each destination:
-                        - Give me one strong positive reason to go there
-                        - And one thing I should watch out for
+                        Each `Place` should include:
+                        - `city` (string): the name of the city
+                        - `country` (string): the country it’s located in
+                        - `liked` (boolean): default to false
+                        - `goodThing` (string): one reason I would like this destination
+                        - `watchOut` (string): one thing I should watch out for
+                        - `isShown` (boolean): default to true
+
+                        Return the list as a JSON array without any explanations or extra text.
 
                         Here’s my travel profile:
                         - Distance preference from home: {findDestData.get('distanceFromHome')}

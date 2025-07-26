@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Your recommended places</h1>
+
+    {% for place in places %}
+    {% if place.isShown %}
+    <div class="destination">
+        <h2>{{ place.city }}, {{ place.country }}</h2>
+        <p><strong>Why you'll like it:</strong> {{ place.goodThing }}</p>
+        <p><strong>Watch out for:</strong> {{ place.watchOut }}</p>
+
+        <form action="{{ url_for('toggle_like') }}" method="POST">
+            <input type="hidden" name="city" value="{{ place.city }}">
+            <input type="hidden" name="country" value="{{ place.country }}">
+            <button 
+                type="submit" 
+                class="{{ 'liked' if place.liked else 'not-liked' }}">
+                {% if place.liked %}💚 Liked{% else %}🤍 Like{% endif %}
+            </button>
+        </form>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}
