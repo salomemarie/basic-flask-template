@@ -58,13 +58,20 @@ def toggle_like():
     city = request.form.get('city')
     country = request.form.get('country')
 
+def toggle_like():
+    city = request.form.get('city')
+    country = request.form.get('country')
+
     for place in places:
         if place['city'] == city and place['country'] == country:
-            place['liked'] = not place['liked']
-            if place['liked'] == True :
-                likedPlaces.append({"city": place["city"], "country": place["country"]})
+            place['liked'] = not place.get('liked', False)
+            place_dict = {"city": city, "country": country}
+
+            if place['liked']:
+                if place_dict not in likedPlaces:
+                    likedPlaces.append(place_dict)
             else:
-                likedPlaces.remove({"city": place["city"], "country": place["country"]})
+                likedPlaces[:] = [p for p in likedPlaces if p != place_dict]
             break
 
     return redirect(url_for('destinations'))
