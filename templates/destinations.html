@@ -3,6 +3,10 @@
 {% block body %}
     <h1>Your recommended places</h1>
 
+    <form action="{{ url_for('refresh_places') }}" method="POST">
+        <button type="submit">🔄 Refresh Recommendations</button>
+    </form>
+
     {% for place in places %}
     {% if place.isShown %}
     <div class="destination">
@@ -18,6 +22,12 @@
                 class="{{ 'liked' if place.liked else 'not-liked' }}">
                 {% if place.liked %}💚 Liked{% else %}🤍 Like{% endif %}
             </button>
+        </form>
+
+        <form action="{{ url_for('more_info') }}" method="POST" style="display:inline-block;">
+            <input type="hidden" name="city" value="{{ place.city }}">
+            <input type="hidden" name="country" value="{{ place.country }}">
+            <button type="submit">ℹ️ More Info</button>
         </form>
     </div>
     {% endif %}

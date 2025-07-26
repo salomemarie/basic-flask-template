@@ -19,6 +19,8 @@ app.config['SECRET_KEY'] = config.SECRET_KEY
 
 findDestData = {}
 places = []
+likedPlaces = []
+previousPrepositions = []
 
 
 @app.route("/")
@@ -38,14 +40,10 @@ def find():
         findDestData['tripType'] = request.form.get('tripType', 'No trip type specified')
         findDestData['pastVacations'] = request.form.get('pastVacations', 'No past vacations listed')
         findDestData['extraInformation'] = request.form.get('extraInformation', 'No extra information given')
+        findDestData["likedPropositions"] = likedPlaces
+        findDestData["previousPropositions"] = previousPrepositions
 
-        rawPlacesData = api.getPlaces(findDestData=findDestData)
-        jsonPlacesData = clean_and_parse_json(rawPlacesData)
-
-        for place in jsonPlacesData:
-            place.setdefault('liked', False)
-
-        places.extend(jsonPlacesData)
+        fetch_and_add_new_places()
         return redirect(url_for('destinations'))
     return render_template("find.html")
 
@@ -59,14 +57,41 @@ def destinations():
 def toggle_like():
     city = request.form.get('city')
     country = request.form.get('country')
-    
-    # Find and toggle the liked field
+
     for place in places:
         if place['city'] == city and place['country'] == country:
             place['liked'] = not place['liked']
+            if place['liked'] == True :
+                likedPlaces.append({"city": place["city"], "country": place["country"]})
+            else:
+                likedPlaces.remove({"city": place["city"], "country": place["country"]})
             break
 
     return redirect(url_for('destinations'))
+
+@app.route('/more-info', methods=['POST'])
+def more_info():
+    city = request.form.get('city')
+    country = request.form.get('country')
+    
+    # Logic to fetch extra info, maybe set place['extraInfo'] or redirect to a detail page
+    return f"More info coming soon for {city}, {country}."
+
+@app.route('/refresh', methods=['POST'])
+def refresh_places():
+
+    for place in places:
+        if place.get("isShown", True):
+            previousPrepositions.append({"city": place["city"], "country": place["country"]})
+            place['isShown'] = False
+
+    findDestData["likedPropositions"] = likedPlaces
+    findDestData["previousPropositions"] = previousPrepositions
+
+    fetch_and_add_new_places()
+
+    return redirect(url_for('destinations'))
+
 
 
 def clean_and_parse_json(raw):
@@ -83,6 +108,11 @@ def clean_and_parse_json(raw):
 
     json_str = match.group(0)
     return json.loads(json_str)
+
+def fetch_and_add_new_places():
+    rawPlacesData = api.getPlaces(findDestData=findDestData)
+    jsonPlacesData = clean_and_parse_json(rawPlacesData)
+    places.extend(jsonPlacesData)
 
 if __name__ == "__main__":
     app.run(debug=DEVELOPMENT_ENV)

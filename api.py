@@ -30,6 +30,8 @@ def getPlaces(findDestData):
                         - Past trips I’ve taken: {findDestData.get('pastVacations')}
                         - Favorite past trip: {findDestData.get('favoriteVacation')}
                         - Other considerations (cost, crowd, etc.): {findDestData.get('extraInformation')}
+                        - Places you have aleady recommended that I liked : {findDestData.get('likedPropositions')}
+                        - Places that you have already recommened so try different ones :  {findDestData.get('previousPropositions')}
                 """
             },
         ]
